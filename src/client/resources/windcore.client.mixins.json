@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "package": "com.clocken.windcore.client.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  },
+  "mixins": [
+    "melancholic_hunger.GuiMixin",
+    "rrv.AbstractRrvItemListOverlayMixin",
+    "rrv.ClientConfigMixin",
+    "rrv.ItemSlotMixin",
+    "rrv.ItemViewOverlayMixin",
+    "rrv.OverlayManagerMixin",
+    "rrv.RecipeBookComponentMixin",
+    "rrv.RecipeViewMenuMixin",
+    "rrv.RecipeViewScreenMixin",
+    "rrv.ScreenInvoker"
+  ]
+}
