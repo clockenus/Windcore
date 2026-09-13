@@ -29,15 +29,15 @@ dependencies {
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
 	// Mixin Squared
-	include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.3")))
+	include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.mixinsquared_version}")))
 
 	// RRV
-	implementation "maven.modrinth:5VolwT6c:cHSUPqf6"
+	implementation "maven.modrinth:rrv:${project.rrv_version}"
 
 	// Melancholic Hunger & HUD
-	implementation "maven.modrinth:iEhfOVYR:L1gCBIsH"
+	implementation "maven.modrinth:melancholic_hunger:${project.melancholic_hunger_version}"
 	// YACL
-	implementation "maven.modrinth:1eAoo2KR:A6V2zTVY"
+	implementation "maven.modrinth:yacl:${project.yacl_version}"
 }
 
 loom {

@@ -34,7 +34,6 @@ public class PebbleBlock extends Block {
     public static final int MAX_PEBBLES = 3;
     private static final VoxelShape SHAPE_SINGLE;
     private static final VoxelShape SHAPE_MULTIPLE;
-    private static final VoxelShape SHAPE_MAX;
 
     public @NonNull MapCodec<PebbleBlock> codec() {
         return CODEC;
@@ -44,7 +43,6 @@ public class PebbleBlock extends Block {
     protected @NonNull VoxelShape getShape(final BlockState state, final BlockGetter level, final BlockPos pos, final CollisionContext context) {
         return switch (state.getValue(PEBBLES)) {
             case MIN_PEBBLES -> SHAPE_SINGLE;
-            case MAX_PEBBLES -> SHAPE_MAX;
             default -> SHAPE_MULTIPLE;
         };
     }
@@ -82,12 +80,11 @@ public class PebbleBlock extends Block {
 
             if (pebbles <= MIN_PEBBLES) {
                 level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-                level.playSound(player, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0F, 1.0F);
             } else {
                 level.setBlockAndUpdate(pos, state.setValue(PEBBLES, pebbles - 1));
-                level.playSound(player, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, 2.5F);
             }
 
+            level.playSound(player, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, 2.5F);
             player.addItem(WCBlocks.PEBBLE.asItem().getDefaultInstance());
             return InteractionResult.SUCCESS;
         }
@@ -99,8 +96,7 @@ public class PebbleBlock extends Block {
 
     static {
         PEBBLES = IntegerProperty.create("pebbles", MIN_PEBBLES, MAX_PEBBLES);
-        SHAPE_SINGLE = Block.box(3.0F, 0.0F, 3.0F, 13.0F, 6.0F, 13.0F);
+        SHAPE_SINGLE = Block.box(4.0F, 0.0F, 4.0F, 12.0F, 4.0F, 12.0F);
         SHAPE_MULTIPLE = Block.column(16.0F, 0.0F, 5.0F);
-        SHAPE_MAX = Block.column(16.0F, 0.0F, 10.0F);
     }
 }

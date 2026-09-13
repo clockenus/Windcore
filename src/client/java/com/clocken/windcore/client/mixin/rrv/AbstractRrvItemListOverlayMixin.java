@@ -8,9 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -46,7 +44,7 @@ public abstract class AbstractRrvItemListOverlayMixin extends AbstractRrvOverlay
         for (int y = this.itemStartY; y <= this.itemEndY - slotSize; y += slotSize) {
             for (int x = this.itemStartX; x <= this.itemEndX - slotSize; x += slotSize) {
                 if (currentStackPos < this.availableItems.size()) {
-                    this.itemSlots().add(new ItemSlot(this.availableItems.get(currentStackPos), x, y));
+                    this.itemSlots().add(new ItemSlot(this.availableItems.get(currentStackPos), x, y, false));
                 }
                 currentStackPos++;
             }
@@ -54,10 +52,5 @@ public abstract class AbstractRrvItemListOverlayMixin extends AbstractRrvOverlay
 
         this.fittingPerPage = currentStackPos - this.startIndex;
         ci.cancel();
-    }
-
-    @ModifyConstant(method = "updateSlots", constant = @Constant(intValue = 19))
-    private int windcore$updateSlots19(int original) {
-        return 24;
     }
 }

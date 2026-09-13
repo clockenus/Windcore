@@ -11,9 +11,8 @@
     "requireAnnotations": true
   },
   "mixins": [
-    "melancholic_hunger.GuiMixin",
+    "melancholic_hunger.DrawHudContextMixin",
     "rrv.AbstractRrvItemListOverlayMixin",
-    "rrv.ClientConfigMixin",
     "rrv.ItemSlotMixin",
     "rrv.ItemViewOverlayMixin",
     "rrv.OverlayManagerMixin",

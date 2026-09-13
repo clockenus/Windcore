@@ -32,7 +32,7 @@ public class WCBlockLootTableProvider extends FabricBlockLootSubProvider {
 
     protected LootTable.Builder createPebbleTable(Block block) {
         if (block instanceof PebbleBlock pebbleBlock) {
-            return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(block, LootItem.lootTableItem(block).apply(IntStream.rangeClosed(1, 3).boxed().toList(), (count) -> SetItemCountFunction.setCount(ConstantValue.exactly((float) count)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties().hasProperty(pebbleBlock.getPebblesProperty(), count)))))));
+            return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(block, LootItem.lootTableItem(block).apply(IntStream.rangeClosed(1, 3).boxed().toList(), (count) -> SetItemCountFunction.setCount(ConstantValue.exactly((float) count)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(net.minecraft.advancements.predicates.StatePropertiesPredicate.Builder.properties().hasProperty(pebbleBlock.getPebblesProperty(), count)))))));
         } else {
             return noDrop();
         }

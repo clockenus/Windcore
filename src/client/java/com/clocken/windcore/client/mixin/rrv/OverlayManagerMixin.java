@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class OverlayManagerMixin {
     @Inject(method = "toggleOverlays", at = @At("TAIL"))
     private static void windcore$afterToggle(CallbackInfo ci) {
-        Screen screen = Minecraft.getInstance().screen;
+        Screen screen = Minecraft.getInstance().gui.screen();
         assert screen != null;
         ((ScreenInvoker) screen).windcore$rebuildWidgets();
     }
