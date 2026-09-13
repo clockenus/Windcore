@@ -13,7 +13,6 @@
   "mixins": [
     "melancholic_hunger.GuiMixin",
     "rrv.AbstractRrvItemListOverlayMixin",
-    "rrv.ClientConfigMixin",
     "rrv.ItemSlotMixin",
     "rrv.ItemViewOverlayMixin",
     "rrv.OverlayManagerMixin",

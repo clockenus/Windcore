@@ -10,7 +10,10 @@ import org.spongepowered.asm.mixin.injection.At;
 public class BlocksMixin {
 
     // logs require tool for drop
-    @ModifyReturnValue(method = "logProperties", at = @At("RETURN"))
+    @ModifyReturnValue(
+            method = "logProperties(Lnet/minecraft/world/level/material/MapColor;Lnet/minecraft/world/level/material/MapColor;Lnet/minecraft/world/level/block/SoundType;)Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;",
+            at = @At("RETURN")
+    )
     private static BlockBehaviour.Properties windcore$logProperties(BlockBehaviour.Properties properties) {
         return properties.requiresCorrectToolForDrops();
     }

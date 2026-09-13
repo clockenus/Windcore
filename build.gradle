@@ -32,12 +32,12 @@ dependencies {
 	include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.3")))
 
 	// RRV
-	implementation "maven.modrinth:5VolwT6c:cHSUPqf6"
+	implementation "maven.modrinth:rrv:8.10.4+26.1.2-fabric"
 
 	// Melancholic Hunger & HUD
-	implementation "maven.modrinth:iEhfOVYR:L1gCBIsH"
+	implementation "maven.modrinth:melancholic_hunger:L1gCBIsH"
 	// YACL
-	implementation "maven.modrinth:1eAoo2KR:A6V2zTVY"
+	implementation "maven.modrinth:yacl:3.9.6+26.1-fabric"
 }
 
 loom {

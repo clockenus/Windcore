@@ -7,9 +7,9 @@ import cc.cassian.rrv.common.overlay.itemlist.view.ItemViewOverlay;
 import cc.cassian.rrv.common.overlay.itemlist.view.ReliableSpriteIconButton;
 import cc.cassian.rrv.common.overlay.itemlist.view.SearchBar;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +24,7 @@ public abstract class ItemViewOverlayMixin extends AbstractRrvItemListOverlay {
     }
 
     @Inject(method = "initForScreen", at = @At("TAIL"))
-    private void windcore$initForScreen(AbstractContainerScreen<? extends AbstractContainerMenu> screen, InventoryPositionInfo invInfo, CallbackInfo ci) {
+    private void windcore$initForScreen(Screen screen, InventoryPositionInfo invInfo, CallbackInfo ci) {
         if (Configs.CLIENT_SETTINGS.isRecipeBookTheme() && !Configs.CLIENT_SETTINGS.isRightIndex() && Configs.CLIENT_SETTINGS.isRecipeBookButton()) {
             this.width = 146;
             this.height = 166;
@@ -54,17 +54,24 @@ public abstract class ItemViewOverlayMixin extends AbstractRrvItemListOverlay {
         return 0;
     }
 
-    @Shadow
-    public ReliableSpriteIconButton back;
-    @Shadow
-    public ReliableSpriteIconButton next;
+    @Override
+    public void createButtons(Component title, int buttonStart, int buttonEnd, int classicButtonStart, int classicButtonEnd) {
+        back = new ReliableSpriteIconButton(16, Component.translatable("rrv.previous_page"), 10, ReliableRecipeViewer.of("back"), ReliableRecipeViewer.of("back"), ReliableRecipeViewer.of("back_disabled"), this::prevPage);
+        next = new ReliableSpriteIconButton(16, Component.translatable("rrv.next_page"), 10, ReliableRecipeViewer.of("next"), ReliableRecipeViewer.of("next"), ReliableRecipeViewer.of("next_disabled"), this::nextPage);
 
-    @Inject(method = "createButtons", at = @At(value = "INVOKE", target = "Lcc/cassian/rrv/common/overlay/itemlist/view/ItemViewOverlay;updateButtons()V"))
-    private void windcore$createButtons(InventoryPositionInfo info, CallbackInfo ci) {
-        if (Configs.CLIENT_SETTINGS.isRecipeBookTheme() && !Configs.CLIENT_SETTINGS.isRightIndex() && Configs.CLIENT_SETTINGS.isRecipeBookButton()) {
-            this.back.setPosition(this.itemEndX - 35, itemStartY - 21);
-            this.next.setPosition(this.itemEndX - 18, itemStartY - 21);
+        int buttonY = this.itemStartY - 21;
+        buttonStart = this.itemEndX - 35;
+        buttonEnd = this.itemEndX - 18;
+
+        back.setPosition(buttonStart, buttonY);
+        next.setPosition(buttonEnd, buttonY);
+
+        if (currentlyIndexing()) {
+            back.visible = false;
+            next.visible = false;
         }
+
+        updateButtons(title);
     }
 
     @Shadow
